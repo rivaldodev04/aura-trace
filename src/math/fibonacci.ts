@@ -4,64 +4,53 @@
 
 import type { Point, FibonacciLevel } from '../types/canvas';
 
-// Los 9 ratios estándar de Fibonacci según MASTER_PLAN sección 7
+// Ratios reducidos estilo TradingView/OlympTrade: 0, 0.236, 0.382, 0.5, 0.618, 1.0
+// Punto A (inicio) = 100% (1.0), Punto B (fin) = 0% (0.0)
 const FIBONACCI_RATIOS = [
-  { ratio: 0.0, label: '0.0', isKeyLevel: false },
+  { ratio: 0.0, label: '0%', isKeyLevel: true },      // 0% en punto B
   { ratio: 0.236, label: '23.6%', isKeyLevel: false },
-  { ratio: 0.382, label: '38.2%', isKeyLevel: true },   // Nivel clave
-  { ratio: 0.5, label: '50%', isKeyLevel: true },       // Nivel clave
-  { ratio: 0.618, label: '61.8%', isKeyLevel: true },   // Nivel clave (golden ratio)
-  { ratio: 0.786, label: '78.6%', isKeyLevel: false },
-  { ratio: 1.0, label: '100%', isKeyLevel: false },
-  { ratio: 1.272, label: '127.2%', isKeyLevel: false },
-  { ratio: 1.618, label: '161.8%', isKeyLevel: false }, // Extensión clásica
+  { ratio: 0.382, label: '38.2%', isKeyLevel: false },
+  { ratio: 0.5, label: '50%', isKeyLevel: true },     // Blanco - importante
+  { ratio: 0.618, label: '61.8%', isKeyLevel: true }, // Blanco - golden ratio
+  { ratio: 1.0, label: '100%', isKeyLevel: true },    // 100% en punto A
 ];
 
 /**
- * Colores para los niveles de Fibonacci
- * Los niveles clave (0.382, 0.5, 0.618) tienen colores más destacados
+ * Colores estilo TradingView:
+ * - 0.5 y 0.618: blanco (los más importantes)
+ * - Resto: azul
  */
 const LEVEL_COLORS: Record<number, string> = {
-  0.0: '#888888',
-  0.236: '#888888',
-  0.382: '#FFAA00',   // Ámbar para nivel clave
-  0.5: '#00AAFF',     // Azul cielo para nivel clave
-  0.618: '#FF00FF',   // Magenta para golden ratio
-  0.786: '#888888',
-  1.0: '#CCCCCC',
-  1.272: '#888888',
-  1.618: '#FF6600',   // Naranja para extensión
+  0.0: '#00AAFF',    // Azul
+  0.236: '#00AAFF',  // Azul
+  0.382: '#00AAFF',  // Azul
+  0.5: '#FFFFFF',    // Blanco - importante
+  0.618: '#FFFFFF',  // Blanco - golden ratio
+  1.0: '#00AAFF',    // Azul
 };
 
 /**
- * Calcula los 9 niveles de Fibonacci entre dos puntos.
+ * Calcula los niveles de Fibonacci entre dos puntos (estilo TradingView).
  * 
- * Funciona para swings ALCISTAS (A abajo, B arriba) y BAJISTAS (A arriba, B abajo).
- * El nivel 0% siempre está en pointA, el 100% en pointB.
+ * Punto A (inicio del dibujo) = 100% (arriba en swing alcista)
+ * Punto B (fin del dibujo) = 0% (abajo en swing alcista)
  * 
- * @param pointA - Punto de inicio del swing (donde está el 0%)
- * @param pointB - Punto final del swing (donde está el 100%)
- * @returns Array de 9 niveles de Fibonacci con sus propiedades
+ * @param pointA - Punto de inicio (100%)
+ * @param pointB - Punto final (0%)
+ * @returns Array de 6 niveles de Fibonacci
  */
 export function calculateFibonacciLevels(pointA: Point, pointB: Point): FibonacciLevel[] {
-  // Calcular la diferencia de precio (en el eje Y)
-  const priceDiff = pointB.y - pointA.y;
+  const priceDiff = pointB.y - pointA.y; // Diferencia: B (0%) → A (100%)
 
-  // Nota: La dirección del swing (alcista/bajista) se maneja automáticamente
-  // porque el cálculo priceDiff * ratio funciona en ambas direcciones.
-  // Si priceDiff es negativo (swing alcista en canvas), los niveles suben.
-  // Si priceDiff es positivo (swing bajista), los niveles bajan.
-
-  // Generar los 9 niveles
   return FIBONACCI_RATIOS.map((config) => {
     // Calcular posición Y del nivel
-    // ratio 0 = pointA.y, ratio 1 = pointB.y
-    const y = pointA.y + priceDiff * config.ratio;
+    // ratio 0 = pointB.y (0%), ratio 1 = pointA.y (100%)
+    const y = pointB.y - priceDiff * config.ratio;
 
     return {
       ratio: config.ratio,
       label: config.label,
-      y: Math.round(y * 100) / 100, // Redondear a 2 decimales
+      y: Math.round(y * 100) / 100,
       color: LEVEL_COLORS[config.ratio],
       isKeyLevel: config.isKeyLevel,
     };
