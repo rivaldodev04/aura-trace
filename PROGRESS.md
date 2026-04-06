@@ -78,7 +78,7 @@ aura-trace/
 │   ├── [x] math/
 │   │   ├── [x] fibonacci.ts
 │   │   ├── [x] geometry.ts
-│   │   ├── [ ] pixelAlign.ts
+│   │   ├── [x] pixelAlign.ts
 │   │   └── [ ] hitTest.ts
 │   ├── [x] serialization/
 │   │   ├── [ ] serializer.ts
@@ -238,7 +238,7 @@ aura-trace/
 **Referencia en MASTER_PLAN**: Sección 7
 **Prerequisito**: Fase 3 ✅ completa
 
-**Progreso**: 6/12 tareas completadas (50%)
+**Progreso**: 9/12 tareas completadas (75%)
 
 ### Tareas
 
@@ -250,9 +250,9 @@ aura-trace/
 | 4.4 | `geometry.ts` con `distance()`, `angleDegrees()`, `midpoint()` | ✅ | src/math/geometry.ts | Funciones base implementadas |
 | 4.5 | `geometry.ts` con `isPointNearSegment()` | ✅ | src/math/geometry.ts | Threshold de 8px para eraser, usa proyección perpendicular |
 | 4.6 | `geometry.ts` con `isPointInRect()` | ✅ | src/math/geometry.ts | Para detectar clicks en zonas (zone-support/resistance) |
-| 4.7 | `pixelAlign.ts` con `snapToPixel()` (offset +0.5) | ⬜ | src/math/pixelAlign.ts | Crítico para líneas nítidas de 1px |
-| 4.8 | `pixelAlign.ts` con `smartSnap()` según strokeWidth | ⬜ | src/math/pixelAlign.ts | |
-| 4.9 | `pixelAlign.ts` con `snapPointsArray()` para arrays de Konva | ⬜ | src/math/pixelAlign.ts | |
+| 4.7 | `pixelAlign.ts` con `snapToPixel()` (offset +0.5) | ✅ | src/math/pixelAlign.ts | Líneas de 1px nítidas en canvas |
+| 4.8 | `pixelAlign.ts` con `smartSnap()` según strokeWidth | ✅ | src/math/pixelAlign.ts | Wrapper automático según ancho de línea |
+| 4.9 | `pixelAlign.ts` con `snapPointsArray()` para arrays de Konva | ✅ | src/math/pixelAlign.ts | Arrays planos [x1,y1,x2,y2] alineados |
 | 4.10 | `snapToPixel()` aplicado en TrendLine, Polyline y Fibonacci | ⬜ | Tools/*.tsx | Verificar que líneas no están borrosas |
 | 4.11 | Fibonacci probado: swing alcista (A abajo, B arriba) | ⬜ | — | 0% debe estar en A, 100% en B |
 | 4.12 | Fibonacci probado: swing bajista (A arriba, B abajo) | ⬜ | — | Mismo comportamiento, dirección invertida |
