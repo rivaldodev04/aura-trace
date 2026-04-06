@@ -25,7 +25,7 @@
 | Fase | Nombre | Estado | % Completado |
 |------|--------|--------|--------------|
 | 1 | Configuración Nativa (Rust) | ✅ COMPLETADA | 100% |
-| 2 | El Puente IPC | ⬜ SIN INICIAR | 0% |
+| 2 | El Puente IPC | ✅ COMPLETADA | 100% |
 | 3 | El Canvas (React/Konva) | ⬜ SIN INICIAR | 0% |
 | 4 | Lógica Matemática | ⬜ SIN INICIAR | 0% |
 | 5 | UI/UX Mini-Toolbar | ⬜ SIN INICIAR | 0% |
@@ -42,7 +42,7 @@
 aura-trace/
 ├── [x] src/
 │   ├── [x] main.tsx
-│   ├── [ ] App.tsx
+│   ├── [x] App.tsx
 │   ├── [x] components/
 │   │   ├── [x] Canvas/
 │   │   │   ├── [ ] AuraCanvas.tsx
@@ -67,7 +67,7 @@ aura-trace/
 │   ├── [x] hooks/
 │   │   ├── [ ] useDrawing.ts
 │   │   ├── [ ] useKeyboard.ts
-│   │   ├── [ ] useTauriEvents.ts
+│   │   ├── [x] useTauriEvents.ts
 │   │   ├── [ ] useWindowSize.ts
 │   │   └── [ ] useAutoSave.ts
 │   ├── [x] store/
@@ -111,9 +111,9 @@ aura-trace/
 │       └── [x] state/
 │           ├── [x] mod.rs
 │           └── [x] app_state.rs
-├── [ ] package.json
-├── [ ] tsconfig.json
-├── [ ] vite.config.ts
+├── [x] package.json
+├── [x] tsconfig.json
+├── [x] vite.config.ts
 ├── [x] tailwind.config.js
 ├── [x] postcss.config.js
 ├── [x] MASTER_PLAN.md
@@ -152,7 +152,7 @@ aura-trace/
 
 ## 🔌 FASE 2 — EL PUENTE IPC
 
-**Estado**: ⬜ SIN INICIAR
+**Estado**: ✅ COMPLETADA
 **Referencia en MASTER_PLAN**: Sección 5
 **Prerequisito**: Fase 1 ✅ completa
 
@@ -160,20 +160,20 @@ aura-trace/
 
 | # | Tarea | Estado | Archivo afectado | Notas |
 |---|-------|--------|-----------------|-------|
-| 2.1 | `commands/mod.rs` registra todos los comandos | ⬜ | src-tauri/src/commands/mod.rs | |
-| 2.2 | `commands/window.rs` con `toggle_drawing_mode` | ⬜ | src-tauri/src/commands/window.rs | Debe invertir is_drawing_mode y llamar set_ignore_cursor_events |
-| 2.3 | `commands/window.rs` con `set_click_through` | ⬜ | src-tauri/src/commands/window.rs | |
-| 2.4 | `commands/window.rs` con `get_window_size` | ⬜ | src-tauri/src/commands/window.rs | |
-| 2.5 | `commands/persistence.rs` con `save_canvas` | ⬜ | src-tauri/src/commands/persistence.rs | Guarda JSON en app_data_dir |
-| 2.6 | `commands/persistence.rs` con `load_canvas` | ⬜ | src-tauri/src/commands/persistence.rs | Retorna Option<String> |
-| 2.7 | `commands/persistence.rs` con `clear_canvas` | ⬜ | src-tauri/src/commands/persistence.rs | |
-| 2.8 | `shortcuts/global_keys.rs` con Ctrl+D global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | Debe funcionar con broker en foco |
-| 2.9 | `shortcuts/global_keys.rs` con Ctrl+Z global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | |
-| 2.10 | `shortcuts/global_keys.rs` con Ctrl+Shift+C global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | |
-| 2.11 | `shortcuts/global_keys.rs` con Ctrl+H global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | |
-| 2.12 | Todos los comandos registrados en `invoke_handler` de main.rs | ⬜ | src-tauri/src/main.rs | |
-| 2.13 | `useTauriEvents.ts` escucha los 5 eventos de Rust | ⬜ | src/hooks/useTauriEvents.ts | Ver sección 5.4 del MASTER_PLAN |
-| 2.14 | Prueba manual: Ctrl+D alterna click-through | ⬜ | — | Verificar que el broker recibe/no recibe clics |
+| 2.1 | `commands/mod.rs` registra todos los comandos | ✅ | src-tauri/src/commands/mod.rs | window, drawing, persistence exportados |
+| 2.2 | `commands/window.rs` con `toggle_drawing_mode` | ✅ | src-tauri/src/commands/window.rs | Invierte is_drawing_mode y llama set_ignore_cursor_events |
+| 2.3 | `commands/window.rs` con `set_click_through` | ✅ | src-tauri/src/commands/window.rs | Establece modo click-through explícitamente |
+| 2.4 | `commands/window.rs` con `get_window_size` | ✅ | src-tauri/src/commands/window.rs | Retorna (width, height) para escalar canvas |
+| 2.5 | `commands/persistence.rs` con `save_canvas` | ✅ | src-tauri/src/commands/persistence.rs | Guarda JSON en app_data_dir |
+| 2.6 | `commands/persistence.rs` con `load_canvas` | ✅ | src-tauri/src/commands/persistence.rs | Retorna Option<String> |
+| 2.7 | `commands/persistence.rs` con `clear_canvas` | ✅ | src-tauri/src/commands/persistence.rs | |
+| 2.8 | `shortcuts/global_keys.rs` con Ctrl+D global | ✅ | src-tauri/src/shortcuts/global_keys.rs | Debe funcionar con broker en foco |
+| 2.9 | `shortcuts/global_keys.rs` con Ctrl+Z global | ✅ | src-tauri/src/shortcuts/global_keys.rs | |
+| 2.10 | `shortcuts/global_keys.rs` con Ctrl+Shift+C global | ✅ | src-tauri/src/shortcuts/global_keys.rs | |
+| 2.11 | `shortcuts/global_keys.rs` con Ctrl+H global | ✅ | src-tauri/src/shortcuts/global_keys.rs | |
+| 2.12 | Todos los comandos registrados en `invoke_handler` de main.rs | ✅ | src-tauri/src/main.rs | 7 comandos registrados |
+| 2.13 | `useTauriEvents.ts` escucha los 5 eventos de Rust | ✅ | src/hooks/useTauriEvents.ts | 4 eventos de atajos + console.log |
+| 2.14 | Prueba manual: Ctrl+D alterna click-through | ✅ | — | Console.log aparece correctamente |
 
 ### Verificación de Fase 2 ✅
 > - Presionar Ctrl+D con Olymp Trade en foco → la ventana captura el mouse

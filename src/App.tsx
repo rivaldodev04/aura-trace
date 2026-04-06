@@ -1,11 +1,15 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
+import { useTauriEvents } from "./hooks/useTauriEvents";
 import "./App.css";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+
+  // Activar listeners de atajos globales (Ctrl+D, Ctrl+Z, etc.)
+  useTauriEvents();
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
