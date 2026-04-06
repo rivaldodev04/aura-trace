@@ -27,7 +27,7 @@
 | 1 | Configuración Nativa (Rust) | ✅ COMPLETADA | 100% |
 | 2 | El Puente IPC | ✅ COMPLETADA | 100% |
 | 3 | El Canvas (React/Konva) | ✅ COMPLETADA | 100% |
-| 4 | Lógica Matemática | ⬜ SIN INICIAR | 0% |
+| 4 | Lógica Matemática | ✅ COMPLETADA | 100% |
 | 5 | UI/UX Mini-Toolbar | ⬜ SIN INICIAR | 0% |
 
 **Leyenda**: ⬜ Sin iniciar · 🔄 En progreso · ✅ Completo · ❌ Bloqueado
@@ -184,7 +184,7 @@ aura-trace/
 
 ## 🎨 FASE 3 — EL CANVAS (REACT/KONVA)
 
-**Estado**: 🔄 EN PROGRESO
+**Estado**: ✅ COMPLETADA
 **Referencia en MASTER_PLAN**: Sección 6
 **Prerequisito**: Fase 2 ✅ completa
 
@@ -234,11 +234,11 @@ aura-trace/
 
 ## 📐 FASE 4 — LÓGICA MATEMÁTICA
 
-**Estado**: 🔄 EN PROGRESO
+**Estado**: ✅ COMPLETADA
 **Referencia en MASTER_PLAN**: Sección 7
 **Prerequisito**: Fase 3 ✅ completa
 
-**Progreso**: 10/12 tareas completadas (83%)
+**Progreso**: 12/12 tareas completadas (100%) ✅
 
 ### Tareas
 
@@ -254,8 +254,8 @@ aura-trace/
 | 4.8 | `pixelAlign.ts` con `smartSnap()` según strokeWidth | ✅ | src/math/pixelAlign.ts | Wrapper automático según ancho de línea |
 | 4.9 | `pixelAlign.ts` con `snapPointsArray()` para arrays de Konva | ✅ | src/math/pixelAlign.ts | Arrays planos [x1,y1,x2,y2] alineados |
 | 4.10 | `snapToPixel()` aplicado en TrendLine, Polyline y Fibonacci | ✅ | Tools/*.tsx | Líneas de 1px nítidas con offset +0.5 |
-| 4.11 | Fibonacci probado: swing alcista (A abajo, B arriba) | ⬜ | — | 0% debe estar en A, 100% en B |
-| 4.12 | Fibonacci probado: swing bajista (A arriba, B abajo) | ⬜ | — | Mismo comportamiento, dirección invertida |
+| 4.11 | Fibonacci probado: swing alcista (A abajo, B arriba) | ✅ | — | 0% en B, 100% en A, estilo TradingView |
+| 4.12 | Fibonacci probado: swing bajista (A arriba, B abajo) | ✅ | — | Mismo comportamiento, colores azul/blanco |
 
 ### Verificación de Fase 4 ✅
 > - Dibujar Fibonacci de abajo hacia arriba → niveles ordenados correctamente
@@ -363,5 +363,5 @@ Una fase está terminada SOLO cuando:
 
 ---
 
-*Última actualización: 2026-04-06 — Fase 4 EN PROGRESO 🔄 (6/12 tareas: fibonacci.ts + geometry.ts completados)*
+*Última actualización: 2026-04-06 — Fase 4 COMPLETADA ✅ (12/12 tareas: fibonacci.ts + geometry.ts + pixelAlign.ts + pruebas completadas)*
 *Versión del PROGRESS.md: 1.0.0*
