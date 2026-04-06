@@ -234,17 +234,19 @@ aura-trace/
 
 ## 📐 FASE 4 — LÓGICA MATEMÁTICA
 
-**Estado**: ⬜ SIN INICIAR
+**Estado**: 🔄 EN PROGRESO
 **Referencia en MASTER_PLAN**: Sección 7
 **Prerequisito**: Fase 3 ✅ completa
+
+**Progreso**: 3/12 tareas completadas (25%)
 
 ### Tareas
 
 | # | Tarea | Estado | Archivo afectado | Notas |
 |---|-------|--------|-----------------|-------|
-| 4.1 | `fibonacci.ts` con `calculateFibonacciLevels(pointA, pointB)` | ⬜ | src/math/fibonacci.ts | Debe funcionar con swing alcista Y bajista |
-| 4.2 | `fibonacci.ts` con los 9 ratios: 0, 0.236, 0.382, 0.5, 0.618, 0.786, 1.0, 1.272, 1.618 | ⬜ | src/math/fibonacci.ts | |
-| 4.3 | `fibonacci.ts` con `getNearestFibonacciLevel()` | ⬜ | src/math/fibonacci.ts | Threshold de 5px |
+| 4.1 | `fibonacci.ts` con `calculateFibonacciLevels(pointA, pointB)` | ✅ | src/math/fibonacci.ts | Funciona con swing alcista Y bajista |
+| 4.2 | `fibonacci.ts` con los 9 ratios: 0, 0.236, 0.382, 0.5, 0.618, 0.786, 1.0, 1.272, 1.618 | ✅ | src/math/fibonacci.ts | Todos los ratios implementados con colores |
+| 4.3 | `fibonacci.ts` con `getNearestFibonacciLevel()` | ✅ | src/math/fibonacci.ts | Threshold de 5px configurable |
 | 4.4 | `geometry.ts` con `distance()`, `angleDegrees()`, `midpoint()` | ⬜ | src/math/geometry.ts | |
 | 4.5 | `geometry.ts` con `isPointNearSegment()` | ⬜ | src/math/geometry.ts | Threshold de 8px para eraser |
 | 4.6 | `geometry.ts` con `isPointInRect()` | ⬜ | src/math/geometry.ts | Para detectar clicks en zonas |

@@ -11,27 +11,27 @@ interface FibonacciProps {
   onClick?: () => void;
 }
 
-export const Fibonacci: React.FC<FibonacciProps> = memo(({ object, isSelected, onClick }) => {
+export const Fibonacci: React.FC<FibonacciProps> = memo(({ object, isSelected: _isSelected, onClick }) => {
   const { pointA, pointB, levels, color } = object;
-  
+
   // Calcular el rango de precios (Y)
   const minY = Math.min(pointA.y, pointB.y);
   const maxY = Math.max(pointA.y, pointB.y);
   const rangeY = maxY - minY;
-  
+
   // Determinar dirección (alcista o bajista)
   const isBullish = pointA.y > pointB.y; // A abajo, B arriba = alcista
-  
+
   // Renderizar niveles de Fibonacci
   return (
     <Group onClick={onClick} listening={true}>
       {levels.map((level) => {
         // Calcular posición Y según la dirección del swing
         const ratio = level.ratio;
-        const y = isBullish 
+        const y = isBullish
           ? maxY - (rangeY * ratio)  // Alcista: 0% en A (abajo), 100% en B (arriba)
           : minY + (rangeY * ratio); // Bajista: 0% en A (arriba), 100% en B (abajo)
-        
+
         return (
           <React.Fragment key={level.ratio}>
             {/* Línea horizontal del nivel */}
@@ -55,7 +55,7 @@ export const Fibonacci: React.FC<FibonacciProps> = memo(({ object, isSelected, o
           </React.Fragment>
         );
       })}
-      
+
       {/* Línea vertical conectora (opcional, para visualizar el swing) */}
       <Line
         points={[pointA.x, pointA.y, pointA.x, pointB.y]}
@@ -64,7 +64,7 @@ export const Fibonacci: React.FC<FibonacciProps> = memo(({ object, isSelected, o
         opacity={0.3}
         dash={[3, 3]}
       />
-      
+
       {/* Puntos de inicio y fin */}
       <Line
         points={[pointA.x - 5, pointA.y, pointA.x + 5, pointA.y]}

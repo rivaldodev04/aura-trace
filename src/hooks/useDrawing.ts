@@ -4,7 +4,7 @@
 import { useState, useCallback } from 'react';
 import { useToolStore } from '../store/useToolStore';
 import { useCanvasStore } from '../store/useCanvasStore';
-import type { Point, ToolType, AnyCanvasObject } from '../types/canvas';
+import type { Point, AnyCanvasObject } from '../types/canvas';
 
 interface DrawingState {
   isDrawing: boolean;
