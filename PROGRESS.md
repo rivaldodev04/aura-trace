@@ -26,7 +26,7 @@
 |------|--------|--------|--------------|
 | 1 | Configuración Nativa (Rust) | ✅ COMPLETADA | 100% |
 | 2 | El Puente IPC | ✅ COMPLETADA | 100% |
-| 3 | El Canvas (React/Konva) | ⬜ SIN INICIAR | 0% |
+| 3 | El Canvas (React/Konva) | ✅ COMPLETADA | 100% |
 | 4 | Lógica Matemática | ⬜ SIN INICIAR | 0% |
 | 5 | UI/UX Mini-Toolbar | ⬜ SIN INICIAR | 0% |
 
