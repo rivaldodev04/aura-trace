@@ -1,54 +1,44 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import { useTauriEvents } from "./hooks/useTauriEvents";
-import "./App.css";
+// src/App.tsx
+// Componente principal de Aura Trace — Integración Fase 3
+
+import { useTauriEvents } from './hooks/useTauriEvents';
+import { useAutoSave } from './hooks/useAutoSave';
+import { useCanvasStore } from './store/useCanvasStore';
+import { AuraCanvas } from './components/Canvas/AuraCanvas';
+import './App.css';
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
   // Activar listeners de atajos globales (Ctrl+D, Ctrl+Z, etc.)
   useTauriEvents();
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  // Auto-guardado del canvas cada 2 segundos
+  const { objects } = useCanvasStore();
+  useAutoSave(objects, { debounceMs: 2000, enabled: true });
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    <div className="app-container" style={{ width: '100vw', height: '100vh' }}>
+      {/* Canvas overlay transparente */}
+      <AuraCanvas />
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
+      {/* Debug: Indicador de que la app está corriendo */}
+      <div
+        style={{
+          position: 'fixed',
+          bottom: 10,
+          right: 10,
+          padding: '8px 12px',
+          background: 'rgba(0,0,0,0.7)',
+          color: '#00FF00',
+          fontSize: 12,
+          fontFamily: 'monospace',
+          borderRadius: 4,
+          zIndex: 10001,
+          pointerEvents: 'none',
         }}
       >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+        Aura Trace v1.0 — Fase 3 ✅ | Objetos: {objects.length}
+      </div>
+    </div>
   );
 }
 
