@@ -238,7 +238,7 @@ aura-trace/
 **Referencia en MASTER_PLAN**: Sección 7
 **Prerequisito**: Fase 3 ✅ completa
 
-**Progreso**: 9/12 tareas completadas (75%)
+**Progreso**: 10/12 tareas completadas (83%)
 
 ### Tareas
 
@@ -253,7 +253,7 @@ aura-trace/
 | 4.7 | `pixelAlign.ts` con `snapToPixel()` (offset +0.5) | ✅ | src/math/pixelAlign.ts | Líneas de 1px nítidas en canvas |
 | 4.8 | `pixelAlign.ts` con `smartSnap()` según strokeWidth | ✅ | src/math/pixelAlign.ts | Wrapper automático según ancho de línea |
 | 4.9 | `pixelAlign.ts` con `snapPointsArray()` para arrays de Konva | ✅ | src/math/pixelAlign.ts | Arrays planos [x1,y1,x2,y2] alineados |
-| 4.10 | `snapToPixel()` aplicado en TrendLine, Polyline y Fibonacci | ⬜ | Tools/*.tsx | Verificar que líneas no están borrosas |
+| 4.10 | `snapToPixel()` aplicado en TrendLine, Polyline y Fibonacci | ✅ | Tools/*.tsx | Líneas de 1px nítidas con offset +0.5 |
 | 4.11 | Fibonacci probado: swing alcista (A abajo, B arriba) | ⬜ | — | 0% debe estar en A, 100% en B |
 | 4.12 | Fibonacci probado: swing bajista (A arriba, B abajo) | ⬜ | — | Mismo comportamiento, dirección invertida |
 

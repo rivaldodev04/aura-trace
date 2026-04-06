@@ -4,6 +4,7 @@
 import React, { memo } from 'react';
 import { Line, Text, Group } from 'react-konva';
 import type { FibonacciObject } from '../../types/canvas';
+import { snapToPixel } from '../../math/pixelAlign';
 
 interface FibonacciProps {
   object: FibonacciObject;
@@ -28,9 +29,13 @@ export const Fibonacci: React.FC<FibonacciProps> = memo(({ object, isSelected: _
       {levels.map((level) => {
         // Calcular posición Y según la dirección del swing
         const ratio = level.ratio;
-        const y = isBullish
+        const rawY = isBullish
           ? maxY - (rangeY * ratio)  // Alcista: 0% en A (abajo), 100% en B (arriba)
           : minY + (rangeY * ratio); // Bajista: 0% en A (arriba), 100% en B (abajo)
+
+        // Aplicar pixel alignment para líneas horizontales nítidas
+        const strokeWidth = level.isKeyLevel ? 2 : 1;
+        const y = snapToPixel(rawY, strokeWidth);
 
         return (
           <React.Fragment key={level.ratio}>
