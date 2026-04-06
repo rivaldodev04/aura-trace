@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react';
 import { useToolStore } from '../store/useToolStore';
 import { useCanvasStore } from '../store/useCanvasStore';
 import type { Point, AnyCanvasObject } from '../types/canvas';
+import { calculateFibonacciLevels } from '../math/fibonacci';
 
 interface DrawingState {
   isDrawing: boolean;
@@ -146,6 +147,22 @@ export function useDrawing() {
           type: activeTool,
           position: currentPoint,
           size: 10,
+          createdAt: now,
+          isSelected: false,
+          isVisible: true,
+          zIndex: 0,
+        };
+        break;
+
+      case 'fibonacci':
+        newObject = {
+          id: generateId(),
+          type: 'fibonacci',
+          pointA: startPoint,
+          pointB: currentPoint,
+          levels: calculateFibonacciLevels(startPoint, currentPoint),
+          color: strokeColor,
+          fillOpacity,
           createdAt: now,
           isSelected: false,
           isVisible: true,

@@ -52,7 +52,7 @@ export const useToolStore = create<ToolState & ToolActions>()(
   persist(
     immer((set) => ({
       // Estado inicial
-      activeTool: 'select',
+      activeTool: 'fibonacci',
       strokeColor: '#FFFFFF',
       fillColor: '#FFFFFF',
       strokeWidth: 2,
