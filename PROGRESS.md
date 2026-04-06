@@ -1,0 +1,348 @@
+# AURA TRACE — PROGRESS.md
+> ⚠️ INSTRUCCIONES PARA LA IA QUE LEA ESTE ARCHIVO:
+> 1. Este archivo es la ÚNICA fuente de verdad del estado actual del proyecto.
+> 2. MASTER_PLAN.md es de solo lectura — nunca lo modifiques.
+> 3. Actualiza este archivo al terminar CADA tarea, no al final de la sesión.
+> 4. Si una tarea está ❌ BLOQUEADA, escribe exactamente qué error hubo.
+> 5. No marques una tarea como ✅ si no la has compilado y verificado que funciona.
+
+---
+
+## 🗂️ META DEL PROYECTO
+
+- **Nombre**: Aura Trace
+- **Descripción**: Overlay transparente de análisis técnico para trading (Olymp Trade / Antigravity)
+- **Stack**: Tauri v2 (Rust) + React 18 + TypeScript + Konva.js + Zustand
+- **Gestor de paquetes**: `pnpm` (NO usar npm ni yarn)
+- **Versión objetivo**: 1.0.0 MVP
+- **OS de desarrollo**: [COMPLETAR: Windows / macOS / Linux]
+- **Ruta del proyecto**: [COMPLETAR: ej. C:\Users\...\aura-trace]
+
+---
+
+## 📊 ESTADO GENERAL
+
+| Fase | Nombre | Estado | % Completado |
+|------|--------|--------|--------------|
+| 1 | Configuración Nativa (Rust) | ✅ COMPLETADA | 100% |
+| 2 | El Puente IPC | ⬜ SIN INICIAR | 0% |
+| 3 | El Canvas (React/Konva) | ⬜ SIN INICIAR | 0% |
+| 4 | Lógica Matemática | ⬜ SIN INICIAR | 0% |
+| 5 | UI/UX Mini-Toolbar | ⬜ SIN INICIAR | 0% |
+
+**Leyenda**: ⬜ Sin iniciar · 🔄 En progreso · ✅ Completo · ❌ Bloqueado
+
+---
+
+## 📁 ESTRUCTURA DE ARCHIVOS CREADOS
+
+> Marca cada archivo conforme se cree. Si un archivo existe pero tiene errores, anótalo.
+
+```
+aura-trace/
+├── [x] src/
+│   ├── [x] main.tsx
+│   ├── [ ] App.tsx
+│   ├── [x] components/
+│   │   ├── [x] Canvas/
+│   │   │   ├── [ ] AuraCanvas.tsx
+│   │   │   └── [x] index.ts
+│   │   ├── [x] Tools/
+│   │   │   ├── [ ] TrendLine.tsx
+│   │   │   ├── [ ] Polyline.tsx
+│   │   │   ├── [ ] Fibonacci.tsx
+│   │   │   ├── [ ] ZoneRect.tsx
+│   │   │   ├── [ ] Marker.tsx
+│   │   │   └── [x] index.ts
+│   │   ├── [x] Toolbar/
+│   │   │   ├── [ ] MiniToolbar.tsx
+│   │   │   ├── [ ] ToolButton.tsx
+│   │   │   ├── [ ] ColorPicker.tsx
+│   │   │   ├── [ ] ModeIndicator.tsx
+│   │   │   ├── [ ] toolbar.css
+│   │   │   └── [x] index.ts
+│   │   └── [x] Overlay/
+│   │       ├── [ ] StatusBar.tsx
+│   │       └── [ ] KeyHint.tsx
+│   ├── [x] hooks/
+│   │   ├── [ ] useDrawing.ts
+│   │   ├── [ ] useKeyboard.ts
+│   │   ├── [ ] useTauriEvents.ts
+│   │   ├── [ ] useWindowSize.ts
+│   │   └── [ ] useAutoSave.ts
+│   ├── [x] store/
+│   │   ├── [ ] useCanvasStore.ts
+│   │   ├── [ ] useToolStore.ts
+│   │   ├── [ ] useUIStore.ts
+│   │   └── [ ] types.ts
+│   ├── [x] math/
+│   │   ├── [ ] fibonacci.ts
+│   │   ├── [ ] geometry.ts
+│   │   ├── [ ] pixelAlign.ts
+│   │   └── [ ] hitTest.ts
+│   ├── [x] serialization/
+│   │   ├── [ ] serializer.ts
+│   │   ├── [ ] deserializer.ts
+│   │   └── [ ] schema.ts
+│   ├── [x] constants/
+│   │   ├── [ ] tools.ts
+│   │   ├── [ ] colors.ts
+│   │   ├── [ ] shortcuts.ts
+│   │   └── [ ] fibonacci.ts
+│   └── [x] types/
+│       ├── [ ] canvas.ts
+│       ├── [ ] events.ts
+│       └── [ ] global.d.ts
+├── [x] src-tauri/
+│   ├── [x] Cargo.toml
+│   ├── [x] build.rs
+│   ├── [x] tauri.conf.json
+│   └── [x] src/
+│       ├── [x] main.rs
+│       ├── [x] lib.rs
+│       ├── [x] commands/
+│       │   ├── [x] mod.rs
+│       │   ├── [x] window.rs
+│       │   ├── [x] drawing.rs
+│       │   └── [x] persistence.rs
+│       ├── [x] shortcuts/
+│       │   ├── [x] mod.rs
+│       │   └── [x] global_keys.rs
+│       └── [x] state/
+│           ├── [x] mod.rs
+│           └── [x] app_state.rs
+├── [ ] package.json
+├── [ ] tsconfig.json
+├── [ ] vite.config.ts
+├── [x] tailwind.config.js
+├── [x] postcss.config.js
+├── [x] MASTER_PLAN.md
+└── [x] PROGRESS.md
+```
+
+---
+
+## 🔧 FASE 1 — CONFIGURACIÓN NATIVA (RUST)
+
+**Estado**: ✅ COMPLETADA
+**Referencia en MASTER_PLAN**: Sección 4
+
+### Tareas
+
+| # | Tarea | Estado | Archivo afectado | Notas |
+|---|-------|--------|-----------------|-------|
+| 1.1 | Proyecto Tauri v2 creado con `pnpm create tauri-app` | ✅ | raíz/ | Template: react-ts — YA EXISTE |
+| 1.2 | `Cargo.toml` con todas las dependencias del plan | ✅ | src-tauri/Cargo.toml | lto=true, opt-level="s", plugins agregados |
+| 1.3 | `tauri.conf.json` con transparent:true, decorations:false, alwaysOnTop:true | ✅ | src-tauri/tauri.conf.json | trayIcon removido (deprecated en v2, se configura en Rust) |
+| 1.4 | `main.rs` con `setup_overlay_window()` | ✅ | src-tauri/src/lib.rs | Módulos commands, shortcuts, state creados |
+| 1.5 | `app_state.rs` con struct AppState y DrawingState | ✅ | src-tauri/src/state/app_state.rs | Mutex thread-safe implementado |
+| 1.6 | Ventana abre en posición (0,0) cubriendo monitor completo | ✅ | lib.rs | Verificado con pnpm tauri build |
+| 1.7 | Tray icon configurado | ⬜ | tauri.conf.json | Deprecated en v2 — se configura en código Rust (Fase 2) |
+| 1.8 | Tailwind CSS instalado y configurado | ✅ | tailwind.config.js / postcss.config.js / index.css | `pnpm add -D tailwindcss autoprefixer postcss` |
+| 1.9 | Estructura de carpetas `/src` creada completa | ✅ | src/ | 10 carpetas con index.ts |
+| 1.10 | `pnpm tauri dev` compila sin errores | ✅ | — | Ejecutable corre: ventana transparente, sin bordes, click-through activo |
+
+### Verificación de Fase 1 ✅
+> Solo marca esta fase como completa cuando:
+> - `pnpm tauri dev` corre sin errores de compilación Rust ni TypeScript
+> - La ventana aparece sin bordes, transparente, siempre encima
+> - El mouse NO es capturado por la app (click-through activo)
+
+---
+
+## 🔌 FASE 2 — EL PUENTE IPC
+
+**Estado**: ⬜ SIN INICIAR
+**Referencia en MASTER_PLAN**: Sección 5
+**Prerequisito**: Fase 1 ✅ completa
+
+### Tareas
+
+| # | Tarea | Estado | Archivo afectado | Notas |
+|---|-------|--------|-----------------|-------|
+| 2.1 | `commands/mod.rs` registra todos los comandos | ⬜ | src-tauri/src/commands/mod.rs | |
+| 2.2 | `commands/window.rs` con `toggle_drawing_mode` | ⬜ | src-tauri/src/commands/window.rs | Debe invertir is_drawing_mode y llamar set_ignore_cursor_events |
+| 2.3 | `commands/window.rs` con `set_click_through` | ⬜ | src-tauri/src/commands/window.rs | |
+| 2.4 | `commands/window.rs` con `get_window_size` | ⬜ | src-tauri/src/commands/window.rs | |
+| 2.5 | `commands/persistence.rs` con `save_canvas` | ⬜ | src-tauri/src/commands/persistence.rs | Guarda JSON en app_data_dir |
+| 2.6 | `commands/persistence.rs` con `load_canvas` | ⬜ | src-tauri/src/commands/persistence.rs | Retorna Option<String> |
+| 2.7 | `commands/persistence.rs` con `clear_canvas` | ⬜ | src-tauri/src/commands/persistence.rs | |
+| 2.8 | `shortcuts/global_keys.rs` con Ctrl+D global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | Debe funcionar con broker en foco |
+| 2.9 | `shortcuts/global_keys.rs` con Ctrl+Z global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | |
+| 2.10 | `shortcuts/global_keys.rs` con Ctrl+Shift+C global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | |
+| 2.11 | `shortcuts/global_keys.rs` con Ctrl+H global | ⬜ | src-tauri/src/shortcuts/global_keys.rs | |
+| 2.12 | Todos los comandos registrados en `invoke_handler` de main.rs | ⬜ | src-tauri/src/main.rs | |
+| 2.13 | `useTauriEvents.ts` escucha los 5 eventos de Rust | ⬜ | src/hooks/useTauriEvents.ts | Ver sección 5.4 del MASTER_PLAN |
+| 2.14 | Prueba manual: Ctrl+D alterna click-through | ⬜ | — | Verificar que el broker recibe/no recibe clics |
+
+### Verificación de Fase 2 ✅
+> - Presionar Ctrl+D con Olymp Trade en foco → la ventana captura el mouse
+> - Presionar Ctrl+D de nuevo → el mouse vuelve al broker
+> - El frontend recibe el evento y podría mostrar un console.log
+
+---
+
+## 🎨 FASE 3 — EL CANVAS (REACT/KONVA)
+
+**Estado**: ⬜ SIN INICIAR
+**Referencia en MASTER_PLAN**: Sección 6
+**Prerequisito**: Fase 2 ✅ completa
+
+### Tareas
+
+| # | Tarea | Estado | Archivo afectado | Notas |
+|---|-------|--------|-----------------|-------|
+| 3.1 | `types/canvas.ts` con todos los tipos (BaseObject, TrendLine, Fibonacci, etc.) | ⬜ | src/types/canvas.ts | Copiar exactamente del MASTER_PLAN sección 6.1 |
+| 3.2 | `useCanvasStore.ts` con Zustand + immer + persist | ⬜ | src/store/useCanvasStore.ts | Incluir historial de 50 pasos |
+| 3.3 | `useToolStore.ts` | ⬜ | src/store/useToolStore.ts | |
+| 3.4 | `useUIStore.ts` | ⬜ | src/store/useUIStore.ts | |
+| 3.5 | `useWindowSize.ts` hook reactivo | ⬜ | src/hooks/useWindowSize.ts | |
+| 3.6 | `AuraCanvas.tsx` con Stage de Konva (2 capas) | ⬜ | src/components/Canvas/AuraCanvas.tsx | Capa objetos + capa preview |
+| 3.7 | `useDrawing.ts` con ciclo mouseDown→mouseMove→mouseUp | ⬜ | src/hooks/useDrawing.ts | Ver sección 6.3 del MASTER_PLAN |
+| 3.8 | `TrendLine.tsx` dibujable y seleccionable | ⬜ | src/components/Tools/TrendLine.tsx | Con React.memo y perfectDrawEnabled:false |
+| 3.9 | `Polyline.tsx` con doble-click para finalizar | ⬜ | src/components/Tools/Polyline.tsx | |
+| 3.10 | `Fibonacci.tsx` renderiza los 9 niveles | ⬜ | src/components/Tools/Fibonacci.tsx | Líneas horizontales + etiquetas de ratio |
+| 3.11 | `ZoneRect.tsx` con fillOpacity:0.3, verde/rojo | ⬜ | src/components/Tools/ZoneRect.tsx | Arrastrable después de creado |
+| 3.12 | `Marker.tsx` con iconos ✅/❌ draggables | ⬜ | src/components/Tools/Marker.tsx | |
+| 3.13 | Canvas no captura eventos cuando isDrawingMode=false | ⬜ | AuraCanvas.tsx | pointerEvents:'none' en el div contenedor |
+| 3.14 | `useAutoSave.ts` con debounce de 2 segundos | ⬜ | src/hooks/useAutoSave.ts | Llama invoke('save_canvas') |
+
+### Verificación de Fase 3 ✅
+> - Se puede dibujar una línea de tendencia sobre el gráfico del broker
+> - Al soltar el mouse, la línea queda fija y visible
+> - Presionar Ctrl+D desactiva el canvas y el broker recibe los clics
+> - Los objetos persisten al reiniciar la app (auto-save funciona)
+
+---
+
+## 📐 FASE 4 — LÓGICA MATEMÁTICA
+
+**Estado**: ⬜ SIN INICIAR
+**Referencia en MASTER_PLAN**: Sección 7
+**Prerequisito**: Fase 3 ✅ completa
+
+### Tareas
+
+| # | Tarea | Estado | Archivo afectado | Notas |
+|---|-------|--------|-----------------|-------|
+| 4.1 | `fibonacci.ts` con `calculateFibonacciLevels(pointA, pointB)` | ⬜ | src/math/fibonacci.ts | Debe funcionar con swing alcista Y bajista |
+| 4.2 | `fibonacci.ts` con los 9 ratios: 0, 0.236, 0.382, 0.5, 0.618, 0.786, 1.0, 1.272, 1.618 | ⬜ | src/math/fibonacci.ts | |
+| 4.3 | `fibonacci.ts` con `getNearestFibonacciLevel()` | ⬜ | src/math/fibonacci.ts | Threshold de 5px |
+| 4.4 | `geometry.ts` con `distance()`, `angleDegrees()`, `midpoint()` | ⬜ | src/math/geometry.ts | |
+| 4.5 | `geometry.ts` con `isPointNearSegment()` | ⬜ | src/math/geometry.ts | Threshold de 8px para eraser |
+| 4.6 | `geometry.ts` con `isPointInRect()` | ⬜ | src/math/geometry.ts | Para detectar clicks en zonas |
+| 4.7 | `pixelAlign.ts` con `snapToPixel()` (offset +0.5) | ⬜ | src/math/pixelAlign.ts | Crítico para líneas nítidas de 1px |
+| 4.8 | `pixelAlign.ts` con `smartSnap()` según strokeWidth | ⬜ | src/math/pixelAlign.ts | |
+| 4.9 | `pixelAlign.ts` con `snapPointsArray()` para arrays de Konva | ⬜ | src/math/pixelAlign.ts | |
+| 4.10 | `snapToPixel()` aplicado en TrendLine, Polyline y Fibonacci | ⬜ | Tools/*.tsx | Verificar que líneas no están borrosas |
+| 4.11 | Fibonacci probado: swing alcista (A abajo, B arriba) | ⬜ | — | 0% debe estar en A, 100% en B |
+| 4.12 | Fibonacci probado: swing bajista (A arriba, B abajo) | ⬜ | — | Mismo comportamiento, dirección invertida |
+
+### Verificación de Fase 4 ✅
+> - Dibujar Fibonacci de abajo hacia arriba → niveles ordenados correctamente
+> - Dibujar Fibonacci de arriba hacia abajo → niveles ordenados correctamente
+> - Líneas de 1px se ven nítidas (no borrosas/blurry) en monitor 1080p
+
+---
+
+## 🖥️ FASE 5 — UI/UX MINI-TOOLBAR
+
+**Estado**: ⬜ SIN INICIAR
+**Referencia en MASTER_PLAN**: Sección 8
+**Prerequisito**: Fase 4 ✅ completa
+
+### Tareas
+
+| # | Tarea | Estado | Archivo afectado | Notas |
+|---|-------|--------|-----------------|-------|
+| 5.1 | `toolbar.css` con glassmorphism (rgba(10,12,18,0.92) + backdrop-filter) | ⬜ | src/components/Toolbar/toolbar.css | Copiar exactamente de sección 8.2 |
+| 5.2 | `ToolButton.tsx` con estado activo/inactivo | ⬜ | src/components/Toolbar/ToolButton.tsx | Verde para zone-support, Rojo para zone-resistance |
+| 5.3 | `ColorPicker.tsx` con 6 presets de color | ⬜ | src/components/Toolbar/ColorPicker.tsx | Presets: blanco, ámbar, verde, rojo, azul, púrpura |
+| 5.4 | `ModeIndicator.tsx` cambia visualmente con Ctrl+D | ⬜ | src/components/Toolbar/ModeIndicator.tsx | Ámbar cuando activo, gris cuando inactivo |
+| 5.5 | `MiniToolbar.tsx` con grid 3×3 de herramientas | ⬜ | src/components/Toolbar/MiniToolbar.tsx | 9 herramientas del MASTER_PLAN |
+| 5.6 | Toolbar es draggable (posición libre en pantalla) | ⬜ | MiniToolbar.tsx | Guardar posición en localStorage |
+| 5.7 | Toolbar visible solo cuando isVisible=true | ⬜ | MiniToolbar.tsx | Ctrl+H la oculta/muestra |
+| 5.8 | Botón Deshacer funcional en toolbar | ⬜ | MiniToolbar.tsx | Llama useCanvasStore.undo() |
+| 5.9 | Botón Limpiar con confirmación | ⬜ | MiniToolbar.tsx | Llama useCanvasStore.clearAll() |
+| 5.10 | Atajos de teclado locales (S, L, P, F, G, R, 1, 2, E) | ⬜ | src/hooks/useKeyboard.ts | Solo activos en modo dibujo |
+| 5.11 | `useKeyboard.ts` implementado | ⬜ | src/hooks/useKeyboard.ts | |
+| 5.12 | Toolbar NO interfiere con el canvas (z-index correcto) | ⬜ | — | Toolbar z-index:10000, Canvas z-index:9999 |
+
+### Verificación de Fase 5 ✅
+> - La toolbar se puede arrastrar a cualquier posición de la pantalla
+> - Presionar Ctrl+D cambia el badge de "MODO OVERLAY" a "MODO DIBUJO"
+> - Presionar L selecciona la herramienta línea de tendencia
+> - El estilo glassmorphism es visible (fondo oscuro semitransparente)
+
+---
+
+## 🐛 REGISTRO DE ERRORES Y BLOQUEOS
+
+> Cuando encuentres un error, anótalo aquí con todos los detalles.
+> No borres los errores resueltos — márcalos como [RESUELTO].
+
+| # | Fase | Error | Estado | Solución aplicada |
+|---|------|-------|--------|------------------|
+| 1 | 1 | PluginInitialization global-shortcut: invalid type map expected unit | [RESUELTO] | Remover sección "plugins" vacía de tauri.conf.json |
+
+---
+
+## 📋 REGISTRO DE SESIONES
+
+### Sesión 1
+- **Fecha**: [COMPLETAR]
+- **IA usada**: Kimi K2.5 (Windsurf)
+- **Tareas completadas**: Ninguna aún
+- **Tareas en progreso**: Ninguna
+- **Próximo paso**: Comenzar Fase 1, tarea 1.1
+- **Problemas encontrados**: Ninguno
+- **Notas**: Proyecto recién iniciado. MASTER_PLAN.md y PROGRESS.md creados.
+
+---
+
+## ⚙️ DEPENDENCIAS INSTALADAS
+
+> Marca cuando estén en package.json y node_modules
+
+| Dependencia | Versión | Instalada | Comando usado |
+|-------------|---------|-----------|---------------|
+| react | ^18.3.0 | ⬜ | pnpm create tauri-app (incluida) |
+| react-dom | ^18.3.0 | ⬜ | pnpm create tauri-app (incluida) |
+| @tauri-apps/api | ^2.0.0 | ⬜ | pnpm add @tauri-apps/api |
+| @tauri-apps/plugin-global-shortcut | ^2.0.0 | ⬜ | pnpm add @tauri-apps/plugin-global-shortcut |
+| konva | ^9.3.0 | ⬜ | pnpm add konva |
+| react-konva | ^18.2.10 | ⬜ | pnpm add react-konva |
+| zustand | ^4.5.0 | ⬜ | pnpm add zustand |
+| uuid | ^9.0.0 | ⬜ | pnpm add uuid |
+| @types/uuid | ^9.0.0 | ⬜ | pnpm add -D @types/uuid |
+| tailwindcss | ^3.4.0 | ⬜ | pnpm add -D tailwindcss |
+| autoprefixer | ^10.4.0 | ⬜ | pnpm add -D autoprefixer |
+| postcss | ^8.4.0 | ⬜ | pnpm add -D postcss |
+| typescript | ^5.4.0 | ⬜ | pnpm create tauri-app (incluida) |
+| vite | ^5.2.0 | ⬜ | pnpm create tauri-app (incluida) |
+
+---
+
+## 🔑 DECISIONES TOMADAS EN SESIONES ANTERIORES
+
+> Si la IA tomó una decisión que se aparta del MASTER_PLAN, regístrala aquí
+> para que la siguiente IA no la revierta sin saber.
+
+| Decisión | Razón | Fecha | Aprobado por |
+|----------|-------|-------|--------------|
+| Sin decisiones aún | — | — | — |
+
+---
+
+## ✅ DEFINICIÓN DE "TERMINADO" (DoD)
+
+Una fase está terminada SOLO cuando:
+1. Todos los checkboxes de esa fase están marcados ✅
+2. `pnpm tauri dev` compila sin ningún error ni warning de TypeScript
+3. La funcionalidad fue probada manualmente (no solo que compile)
+4. PROGRESS.md fue actualizado reflejando el estado real
+
+---
+
+*Última actualización: 2026-04-06 — Fase 1 COMPLETADA Y VALIDADA ✅ (compilación exitosa)*
+*Versión del PROGRESS.md: 1.0.0*
