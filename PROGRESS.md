@@ -76,8 +76,8 @@ aura-trace/
 │   │   ├── [x] useUIStore.ts
 │   │   └── [ ] types.ts
 │   ├── [x] math/
-│   │   ├── [ ] fibonacci.ts
-│   │   ├── [ ] geometry.ts
+│   │   ├── [x] fibonacci.ts
+│   │   ├── [x] geometry.ts
 │   │   ├── [ ] pixelAlign.ts
 │   │   └── [ ] hitTest.ts
 │   ├── [x] serialization/
@@ -238,7 +238,7 @@ aura-trace/
 **Referencia en MASTER_PLAN**: Sección 7
 **Prerequisito**: Fase 3 ✅ completa
 
-**Progreso**: 3/12 tareas completadas (25%)
+**Progreso**: 6/12 tareas completadas (50%)
 
 ### Tareas
 
@@ -247,9 +247,9 @@ aura-trace/
 | 4.1 | `fibonacci.ts` con `calculateFibonacciLevels(pointA, pointB)` | ✅ | src/math/fibonacci.ts | Funciona con swing alcista Y bajista |
 | 4.2 | `fibonacci.ts` con los 9 ratios: 0, 0.236, 0.382, 0.5, 0.618, 0.786, 1.0, 1.272, 1.618 | ✅ | src/math/fibonacci.ts | Todos los ratios implementados con colores |
 | 4.3 | `fibonacci.ts` con `getNearestFibonacciLevel()` | ✅ | src/math/fibonacci.ts | Threshold de 5px configurable |
-| 4.4 | `geometry.ts` con `distance()`, `angleDegrees()`, `midpoint()` | ⬜ | src/math/geometry.ts | |
-| 4.5 | `geometry.ts` con `isPointNearSegment()` | ⬜ | src/math/geometry.ts | Threshold de 8px para eraser |
-| 4.6 | `geometry.ts` con `isPointInRect()` | ⬜ | src/math/geometry.ts | Para detectar clicks en zonas |
+| 4.4 | `geometry.ts` con `distance()`, `angleDegrees()`, `midpoint()` | ✅ | src/math/geometry.ts | Funciones base implementadas |
+| 4.5 | `geometry.ts` con `isPointNearSegment()` | ✅ | src/math/geometry.ts | Threshold de 8px para eraser, usa proyección perpendicular |
+| 4.6 | `geometry.ts` con `isPointInRect()` | ✅ | src/math/geometry.ts | Para detectar clicks en zonas (zone-support/resistance) |
 | 4.7 | `pixelAlign.ts` con `snapToPixel()` (offset +0.5) | ⬜ | src/math/pixelAlign.ts | Crítico para líneas nítidas de 1px |
 | 4.8 | `pixelAlign.ts` con `smartSnap()` según strokeWidth | ⬜ | src/math/pixelAlign.ts | |
 | 4.9 | `pixelAlign.ts` con `snapPointsArray()` para arrays de Konva | ⬜ | src/math/pixelAlign.ts | |
@@ -363,5 +363,5 @@ Una fase está terminada SOLO cuando:
 
 ---
 
-*Última actualización: 2026-04-06 — Fase 3 COMPLETADA ✅ (useAutoSave implementado)*
+*Última actualización: 2026-04-06 — Fase 4 EN PROGRESO 🔄 (6/12 tareas: fibonacci.ts + geometry.ts completados)*
 *Versión del PROGRESS.md: 1.0.0*
