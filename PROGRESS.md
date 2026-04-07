@@ -323,6 +323,7 @@ aura-trace/
 | 2 | 5 | React key prop warning en AuraCanvas.tsx:44 | [RESUELTO] | Mover `key={obj.id}` fuera del spread, pasar directo al JSX |
 | 3 | 5 | Eraser no borra objetos | [RESUELTO] | Reemplazado por sistema de selección + tecla Delete |
 | 4 | 5 | Implementar borrado por selección | [COMPLETADO] | Atajo global Delete en Rust → evento → removeObject(selectedId) en React |
+| 5 | 5 | Limpieza de archivos innecesarios | [COMPLETADO] | Eliminados iconos no usados, assets de plantilla, configs obsoletos |
 
 ---
 
