@@ -1,0 +1,463 @@
+/* src/components/Toolbar/toolbar.css */
+/* Glassmorphism minimalista para Mini-Toolbar Aura Trace */
+
+:root {
+  --toolbar-bg: rgba(10, 12, 18, 0.92);
+  --toolbar-border: rgba(255, 255, 255, 0.1);
+  --toolbar-shadow: rgba(0, 0, 0, 0.4);
+  --toolbar-header: rgba(30, 35, 45, 0.9);
+  
+  /* Colores de modo */
+  --mode-overlay: #6b7280;
+  --mode-drawing: #f59e0b;
+  
+  /* Estados de botones */
+  --btn-hover: rgba(255, 255, 255, 0.1);
+  --btn-active: rgba(59, 130, 246, 0.3);
+  --btn-active-border: rgba(59, 130, 246, 0.8);
+  
+  /* Zonas */
+  --zone-support: rgba(34, 197, 94, 0.3);
+  --zone-resistance: rgba(239, 68, 68, 0.3);
+  
+  /* Tipografía */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ================= MINI TOOLBAR PRINCIPAL ================= */
+.aura-toolbar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  /* Glassmorphism */
+  background: var(--toolbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Bordes */
+  border: 1px solid var(--toolbar-border);
+  border-radius: 12px;
+  
+  /* Sombra */
+  box-shadow: 
+    0 4px 6px -1px var(--toolbar-shadow),
+    0 2px 4px -2px var(--toolbar-shadow),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  
+  /* Animaciones */
+  transition: 
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  
+  /* Prevenir interferencia con selección */
+  user-select: none;
+  -webkit-user-select: none;
+  
+  /* Tamaño compacto */
+  min-width: 140px;
+  max-width: 160px;
+  padding: 8px;
+}
+
+.aura-toolbar.dragging {
+  cursor: grabbing;
+  box-shadow: 
+    0 20px 25px -5px var(--toolbar-shadow),
+    0 8px 10px -6px var(--toolbar-shadow);
+}
+
+.aura-toolbar.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+}
+
+/* ================= HEADER / DRAG HANDLE ================= */
+.toolbar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  
+  padding: 4px 6px;
+  margin: -4px -4px 4px -4px;
+  
+  background: var(--toolbar-header);
+  border-radius: 8px;
+  border: 1px solid var(--toolbar-border);
+  
+  cursor: grab;
+  transition: background 0.15s ease;
+}
+
+.toolbar-header:hover {
+  background: rgba(40, 45, 58, 0.95);
+}
+
+.toolbar-header:active {
+  cursor: grabbing;
+}
+
+.toolbar-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  user-select: none;
+}
+
+.toolbar-drag-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  opacity: 0.4;
+  transition: opacity 0.15s ease;
+}
+
+.toolbar-header:hover .toolbar-drag-icon {
+  opacity: 0.7;
+}
+
+/* ================= GRID DE HERRAMIENTAS (3×3) ================= */
+.toolbar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+/* ================= BOTÓN DE HERRAMIENTA ================= */
+.tool-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  
+  cursor: pointer;
+  transition: all 0.15s ease;
+  
+  /* Reset de estilos */
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.tool-button:hover {
+  background: var(--btn-hover);
+}
+
+.tool-button:active {
+  transform: scale(0.95);
+}
+
+.tool-button.active {
+  background: var(--btn-active);
+  border-color: var(--btn-active-border);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+/* Icono del botón */
+.tool-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.15s ease;
+}
+
+.tool-button:hover .tool-button__icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.tool-button.active .tool-button__icon {
+  color: #60a5fa;
+}
+
+/* Label del botón */
+.tool-button__label {
+  font-family: var(--font-primary);
+  font-size: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.15s ease;
+}
+
+.tool-button:hover .tool-button__label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tool-button.active .tool-button__label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ================= INDICADOR DE MODO ================= */
+.mode-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  padding: 6px 8px;
+  margin-top: 4px;
+  
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  border: 1px solid var(--toolbar-border);
+  
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mode-indicator:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.mode-indicator__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+/* Estado Overlay (click-through) */
+.mode-indicator.mode-overlay {
+  color: var(--mode-overlay);
+}
+
+.mode-indicator.mode-overlay .mode-indicator__dot {
+  background: var(--mode-overlay);
+  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
+}
+
+/* Estado Dibujo (captura eventos) */
+.mode-indicator.mode-drawing {
+  color: var(--mode-drawing);
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.mode-indicator.mode-drawing .mode-indicator__dot {
+  background: var(--mode-drawing);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+  animation: pulse-mode 2s ease-in-out infinite;
+}
+
+@keyframes pulse-mode {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ================= COLOR PICKER ================= */
+.color-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0;
+  border-top: 1px solid var(--toolbar-border);
+  border-bottom: 1px solid var(--toolbar-border);
+}
+
+.color-picker__row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.color-swatch {
+  width: 20px;
+  height: 20px;
+  
+  border: 2px solid transparent;
+  border-radius: 50%;
+  
+  cursor: pointer;
+  transition: all 0.15s ease;
+  
+  /* Indicador de color seleccionado */
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.color-swatch.active {
+  border-color: white;
+  box-shadow: 
+    0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.color-swatch.active::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+/* ================= ACCIONES (Undo/Clear) ================= */
+.toolbar-actions {
+  display: flex;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.toolbar-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  
+  height: 28px;
+  padding: 0 8px;
+  
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--toolbar-border);
+  border-radius: 6px;
+  
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toolbar-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.toolbar-action-btn:active {
+  transform: scale(0.98);
+}
+
+.toolbar-action-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: rgba(239, 68, 68, 0.9);
+}
+
+/* ================= SEPARADORES ================= */
+.toolbar-divider {
+  height: 1px;
+  margin: 4px 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--toolbar-border) 20%,
+    var(--toolbar-border) 80%,
+    transparent
+  );
+}
+
+/* ================= ATAJOS DE TECLADO (hints) ================= */
+.keyboard-hint {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  
+  padding: 1px 3px;
+  
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--toolbar-border);
+  border-radius: 3px;
+  
+  font-family: var(--font-mono);
+  font-size: 7px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ================= RESPONSIVE / TEMAS ================= */
+@media (prefers-reduced-motion: reduce) {
+  .aura-toolbar,
+  .tool-button,
+  .mode-indicator,
+  .color-swatch,
+  .toolbar-action-btn {
+    transition: none;
+  }
+  
+  .mode-indicator.mode-drawing .mode-indicator__dot {
+    animation: none;
+  }
+}
+
+/* Modo minimalista (cuando no hay espacio) */
+.aura-toolbar.compact {
+  min-width: auto;
+  max-width: none;
+}
+
+.aura-toolbar.compact .tool-button__label {
+  display: none;
+}
+
+.aura-toolbar.compact .tool-button {
+  width: 32px;
+  height: 32px;
+}
+
+/* ================= TOOLTIP PERSONALIZADO ================= */
+.toolbar-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 8px;
+  
+  padding: 4px 8px;
+  
+  background: rgba(10, 12, 18, 0.95);
+  border: 1px solid var(--toolbar-border);
+  border-radius: 4px;
+  
+  font-family: var(--font-primary);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.tool-button:hover .toolbar-tooltip {
+  opacity: 1;
+}

@@ -32,22 +32,21 @@ export const AuraCanvas: React.FC = () => {
   const renderObject = (obj: AnyCanvasObject) => {
     const isSelected = obj.id === selectedId;
     const commonProps = {
-      key: obj.id,
       isSelected,
       onClick: () => selectObject(obj.id),
     };
 
     switch (obj.type) {
       case 'trendline':
-        return <TrendLine {...commonProps} object={obj} />;
+        return <TrendLine key={obj.id} {...commonProps} object={obj} />;
       case 'fibonacci':
-        return <Fibonacci {...commonProps} object={obj} />;
+        return <Fibonacci key={obj.id} {...commonProps} object={obj} />;
       case 'zone-support':
       case 'zone-resistance':
-        return <ZoneRect {...commonProps} object={obj} />;
+        return <ZoneRect key={obj.id} {...commonProps} object={obj} />;
       case 'marker-success':
       case 'marker-failure':
-        return <Marker {...commonProps} object={obj} />;
+        return <Marker key={obj.id} {...commonProps} object={obj} />;
       default:
         return null;
     }
