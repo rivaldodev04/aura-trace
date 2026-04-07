@@ -21,7 +21,6 @@ const TOOLS: ToolType[] = [
   'zone-resistance', // R
   'marker-success', // 1
   'marker-failure', // 2
-  'eraser',      // E
 ];
 
 // Tipo para posición guardada
@@ -212,7 +211,6 @@ export const MiniToolbar: React.FC = () => {
         'r': 'zone-resistance',
         '1': 'marker-success',
         '2': 'marker-failure',
-        'e': 'eraser',
       };
 
       const tool = keyMap[e.key.toLowerCase()];

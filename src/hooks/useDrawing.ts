@@ -31,7 +31,7 @@ export function useDrawing() {
   // Iniciar dibujo (mouseDown)
   const handleMouseDown = useCallback(
     (e: { evt: MouseEvent; target: { getStage: () => { getPointerPosition: () => Point | null } | null } }) => {
-      if (activeTool === 'select' || activeTool === 'eraser') return;
+      if (activeTool === 'select') return;
 
       const stage = e.target.getStage?.();
       if (!stage) return;

@@ -61,12 +61,6 @@ const ToolIcons: Record<ToolType, React.ReactNode> = {
       <line x1="15" y1="9" x2="9" y2="15" />
     </svg>
   ),
-  eraser: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z" />
-      <line x1="17" y1="17" x2="7" y2="17" />
-    </svg>
-  ),
 };
 
 // Labels para cada herramienta
@@ -79,7 +73,6 @@ const ToolLabels: Record<ToolType, string> = {
   'zone-resistance': 'Resist',
   'marker-success': 'Éxito',
   'marker-failure': 'Fallo',
-  eraser: 'Borrar',
 };
 
 // Atajos de teclado para cada herramienta
@@ -92,7 +85,6 @@ const ToolShortcuts: Partial<Record<ToolType, string>> = {
   'zone-resistance': 'R',
   'marker-success': '1',
   'marker-failure': '2',
-  eraser: 'E',
 };
 
 export const ToolButton: React.FC<ToolButtonProps> = memo(({ tool, isActive, onClick }) => {

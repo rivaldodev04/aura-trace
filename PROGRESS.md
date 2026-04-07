@@ -321,6 +321,8 @@ aura-trace/
 |---|------|-------|--------|------------------|
 | 1 | 1 | PluginInitialization global-shortcut: invalid type map expected unit | [RESUELTO] | Remover sección "plugins" vacía de tauri.conf.json |
 | 2 | 5 | React key prop warning en AuraCanvas.tsx:44 | [RESUELTO] | Mover `key={obj.id}` fuera del spread, pasar directo al JSX |
+| 3 | 5 | Eraser no borra objetos | [RESUELTO] | Reemplazado por sistema de selección + tecla Delete |
+| 4 | 5 | Implementar borrado por selección | [COMPLETADO] | Atajo global Delete en Rust → evento → removeObject(selectedId) en React |
 
 ---
 

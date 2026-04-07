@@ -9,8 +9,7 @@ export type ToolType =
   | 'zone-support'
   | 'zone-resistance'
   | 'marker-success'
-  | 'marker-failure'
-  | 'eraser';
+  | 'marker-failure';
 
 export interface BaseObject {
   id: string;           // UUID único

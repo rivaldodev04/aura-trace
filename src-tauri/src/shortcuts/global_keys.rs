@@ -20,12 +20,16 @@ pub fn register_shortcuts(app: &tauri::App) -> Result<(), Box<dyn std::error::Er
     // Atajo de visibilidad: Ctrl+H → Ocultar/Mostrar todo el overlay
     let hide_shortcut = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyH);
 
+    // Atajo de borrado: Delete → Borrar objeto seleccionado
+    let delete_shortcut = Shortcut::new(None, Code::Delete);
+
     app.global_shortcut().on_shortcuts(
         [
             toggle_shortcut,
             clear_shortcut,
             undo_shortcut,
             hide_shortcut,
+            delete_shortcut,
         ],
         move |_app, shortcut, event| {
             if event.state == ShortcutState::Pressed {
@@ -52,6 +56,9 @@ fn handle_shortcut(app: &AppHandle, shortcut: &Shortcut) {
         }
         (Code::KeyH, Modifiers::CONTROL) => {
             let _ = app.emit("shortcut-toggle-visibility", ());
+        }
+        (Code::Delete, _) => {
+            let _ = app.emit("shortcut-delete-selected", ());
         }
         _ => {}
     }

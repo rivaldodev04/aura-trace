@@ -26,7 +26,7 @@ const MARKER_SYMBOLS = {
 
 export const Marker: React.FC<MarkerProps> = memo(({ object, isSelected, onClick }) => {
   const { updateObject } = useCanvasStore();
-  
+
   const color = MARKER_COLORS[object.type];
   const symbol = MARKER_SYMBOLS[object.type];
   const { position, size, label } = object;
@@ -34,9 +34,9 @@ export const Marker: React.FC<MarkerProps> = memo(({ object, isSelected, onClick
   // Handler para drag - actualiza la posición del objeto
   const handleDragEnd = useCallback(
     (e: { target: { x: () => number; y: () => number } }) => {
-      const newX = e.target.x() + position.x;
-      const newY = e.target.y() + position.y;
-      
+      const newX = e.target.x();
+      const newY = e.target.y();
+
       updateObject(object.id, {
         position: { x: newX, y: newY },
       });
@@ -62,7 +62,7 @@ export const Marker: React.FC<MarkerProps> = memo(({ object, isSelected, onClick
         opacity={0.9}
         perfectDrawEnabled={false}
       />
-      
+
       {/* Símbolo ✅ o ❌ */}
       <Text
         text={symbol}
@@ -77,7 +77,7 @@ export const Marker: React.FC<MarkerProps> = memo(({ object, isSelected, onClick
         height={size}
         perfectDrawEnabled={false}
       />
-      
+
       {/* Glow cuando está seleccionado */}
       {isSelected && (
         <Circle
@@ -90,7 +90,7 @@ export const Marker: React.FC<MarkerProps> = memo(({ object, isSelected, onClick
           listening={false}
         />
       )}
-      
+
       {/* Label opcional debajo del marcador */}
       {label && (
         <Text

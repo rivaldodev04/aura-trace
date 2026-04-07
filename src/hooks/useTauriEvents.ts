@@ -10,7 +10,7 @@ import { useCanvasStore } from '../store/useCanvasStore';
 
 export function useTauriEvents() {
   const { setDrawingMode, toggleCanvas } = useUIStore();
-  const { undo, clearCanvas } = useCanvasStore();
+  const { undo, clearCanvas, removeObject, selectedId } = useCanvasStore();
 
   useEffect(() => {
     // Atajo Ctrl+D: Toggle Modo Dibujo
@@ -43,12 +43,21 @@ export function useTauriEvents() {
       toggleCanvas();
     });
 
+    // Atajo Delete: Borrar objeto seleccionado
+    const unlistenDelete = listen('shortcut-delete-selected', () => {
+      console.log('[Tauri] Delete selected');
+      if (selectedId) {
+        removeObject(selectedId);
+      }
+    });
+
     // Cleanup: remover listeners al desmontar
     return () => {
       unlistenToggle.then((fn) => fn());
       unlistenClear.then((fn) => fn());
       unlistenUndo.then((fn) => fn());
       unlistenVisibility.then((fn) => fn());
+      unlistenDelete.then((fn) => fn());
     };
-  }, [setDrawingMode, toggleCanvas, undo, clearCanvas]);
+  }, [setDrawingMode, toggleCanvas, undo, clearCanvas, removeObject, selectedId]);
 }
