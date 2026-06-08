@@ -2,6 +2,9 @@
 
 Overlay de análisis técnico para trading. Dibuja líneas de tendencia, canales, retrocesos de Fibonacci y figuras chartistas sobre cualquier ventana.
 
+<img width="1920" height="1080" alt="Proyecto_Aura_Trace" src="https://github.com/user-attachments/assets/eeb49d4e-3b51-4dbd-a4de-675d099f01f3" />
+
+
 ## Stack Tecnológico
 
 - **Backend**: Tauri v2 (Rust)
